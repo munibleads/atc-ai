@@ -72,25 +72,25 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-blue-400/20 bg-slate-900/50 backdrop-blur-md">
-        <div className="container mx-auto px-6 py-4">
+      <header className="border-b border-border bg-card/50 backdrop-blur-md shadow-soft">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-500 rounded-lg">
-                <Plane className="h-6 w-6" />
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-gradient-primary rounded-xl shadow-medium">
+                <Plane className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">AI Co-pilot for ATC</h1>
-                <p className="text-blue-300 text-sm">Flight Clarity Assistant</p>
+                <h1 className="text-2xl font-bold text-foreground">AI Co-pilot for ATC</h1>
+                <p className="text-muted-foreground">Flight Clarity Assistant</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge variant="outline" className="border-green-400 text-green-400">
+              <Badge variant="outline" className="border-primary text-primary bg-primary/5">
                 Flight UA245
               </Badge>
-              <Badge variant="outline" className="border-blue-400 text-blue-400">
+              <Badge variant="outline" className="border-primary text-primary bg-primary/5">
                 System Active
               </Badge>
             </div>
@@ -102,88 +102,90 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* ATC Audio Processing */}
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+          <Card className="shadow-medium border-border">
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2 text-white">
-                <Mic className={`h-5 w-5 ${isListening ? 'text-red-400 animate-pulse' : 'text-blue-400'}`} />
+              <CardTitle className="flex items-center space-x-2 text-foreground">
+                <Mic className={`h-5 w-5 ${isListening ? 'text-destructive animate-pulse' : 'text-primary'}`} />
                 <span>ATC Communication</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="p-4 bg-slate-700/50 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-slate-300">Live Audio Feed</span>
-                  <div className={`w-3 h-3 rounded-full ${isListening ? 'bg-red-400 animate-pulse' : 'bg-green-400'}`}></div>
+              <div className="p-4 bg-muted/50 rounded-lg border border-border">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-muted-foreground">Live Audio Feed</span>
+                  <div className={`w-3 h-3 rounded-full ${isListening ? 'bg-destructive animate-pulse' : 'bg-primary'}`}></div>
                 </div>
                 <div className="text-lg font-mono">
                   {isListening ? (
                     <div className="flex items-center space-x-2">
-                      <Volume2 className="h-4 w-4 text-orange-400 animate-pulse" />
-                      <span className="text-orange-400">Listening...</span>
+                      <Volume2 className="h-4 w-4 text-destructive animate-pulse" />
+                      <span className="text-destructive font-medium">Listening...</span>
                     </div>
                   ) : currentInstruction ? (
-                    <div className="text-blue-300">
+                    <div className="text-primary font-medium">
                       "{currentInstruction}"
                     </div>
                   ) : (
-                    <div className="text-slate-400">Awaiting ATC instruction...</div>
+                    <div className="text-muted-foreground">Awaiting ATC instruction...</div>
                   )}
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-slate-300">Recent Instructions</h4>
-                <div className="space-y-1 text-xs text-slate-400 max-h-24 overflow-y-auto">
-                  <div>"United 245, taxi to runway 24L via Alpha, Bravo"</div>
-                  <div>"United 245, cleared for takeoff runway 24L"</div>
-                  <div>"United 245, contact departure on 121.9"</div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-foreground">Recent Instructions</h4>
+                <div className="space-y-2 text-xs text-muted-foreground max-h-24 overflow-y-auto">
+                  <div className="p-2 bg-muted/30 rounded border-l-2 border-primary/20">"United 245, taxi to runway 24L via Alpha, Bravo"</div>
+                  <div className="p-2 bg-muted/30 rounded border-l-2 border-primary/20">"United 245, cleared for takeoff runway 24L"</div>
+                  <div className="p-2 bg-muted/30 rounded border-l-2 border-primary/20">"United 245, contact departure on 121.9"</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* AI Suggestions */}
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+          <Card className="shadow-medium border-border">
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2 text-white">
-                <AlertTriangle className="h-5 w-5 text-orange-400" />
+              <CardTitle className="flex items-center space-x-2 text-foreground">
+                <AlertTriangle className="h-5 w-5 text-destructive" />
                 <span>AI Suggestions</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {suggestions.length === 0 ? (
-                  <div className="text-center py-8 text-slate-400">
-                    <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-slate-700/50 flex items-center justify-center">
-                      <AlertTriangle className="h-6 w-6" />
+                  <div className="text-center py-12 text-muted-foreground">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center shadow-soft">
+                      <AlertTriangle className="h-8 w-8 text-muted-foreground" />
                     </div>
-                    <p>No pending suggestions</p>
+                    <p className="font-medium">No pending suggestions</p>
                   </div>
                 ) : (
                   suggestions.map((suggestion) => (
-                    <div key={suggestion.id} className="p-3 bg-slate-700/50 rounded-lg border border-orange-400/30 animate-fade-in">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center space-x-2">
-                          <suggestion.icon className="h-4 w-4 text-orange-400" />
-                          <span className="font-semibold text-orange-400">{suggestion.action}</span>
+                    <div key={suggestion.id} className="p-4 bg-card rounded-lg border border-destructive/20 shadow-soft">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 bg-destructive/10 rounded-lg">
+                            <suggestion.icon className="h-4 w-4 text-destructive" />
+                          </div>
+                          <span className="font-semibold text-foreground">{suggestion.action}</span>
                         </div>
                         <Badge 
                           variant="outline" 
                           className={`text-xs ${
                             suggestion.priority === 'high' 
-                              ? 'border-red-400 text-red-400' 
-                              : 'border-yellow-400 text-yellow-400'
+                              ? 'border-destructive text-destructive bg-destructive/5' 
+                              : 'border-primary text-primary bg-primary/5'
                           }`}
                         >
                           {suggestion.priority}
                         </Badge>
                       </div>
-                      <p className="text-sm text-slate-300 mb-3">{suggestion.details}</p>
+                      <p className="text-sm text-muted-foreground mb-4">{suggestion.details}</p>
                       <div className="flex space-x-2">
                         <Button 
                           size="sm" 
                           onClick={() => handleApproveSuggestion(suggestion)}
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft"
                         >
                           Approve
                         </Button>
@@ -191,7 +193,6 @@ const Index = () => {
                           size="sm" 
                           variant="outline" 
                           onClick={() => handleRejectSuggestion(suggestion.id)}
-                          className="border-slate-600 text-slate-300 hover:bg-slate-700"
                         >
                           Dismiss
                         </Button>
@@ -204,45 +205,45 @@ const Index = () => {
           </Card>
 
           {/* Flight Status & Approved Actions */}
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+          <Card className="shadow-medium border-border">
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2 text-white">
-                <CheckCircle className="h-5 w-5 text-green-400" />
+              <CardTitle className="flex items-center space-x-2 text-foreground">
+                <CheckCircle className="h-5 w-5 text-primary" />
                 <span>Flight Status</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="p-2 bg-slate-700/50 rounded">
-                  <div className="text-slate-400">Altitude</div>
-                  <div className="font-semibold text-blue-300">FL250</div>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                  <div className="text-muted-foreground font-medium">Altitude</div>
+                  <div className="font-bold text-lg text-primary">FL250</div>
                 </div>
-                <div className="p-2 bg-slate-700/50 rounded">
-                  <div className="text-slate-400">Speed</div>
-                  <div className="font-semibold text-blue-300">290 kts</div>
+                <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                  <div className="text-muted-foreground font-medium">Speed</div>
+                  <div className="font-bold text-lg text-primary">290 kts</div>
                 </div>
-                <div className="p-2 bg-slate-700/50 rounded">
-                  <div className="text-slate-400">Heading</div>
-                  <div className="font-semibold text-blue-300">310°</div>
+                <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                  <div className="text-muted-foreground font-medium">Heading</div>
+                  <div className="font-bold text-lg text-primary">310°</div>
                 </div>
-                <div className="p-2 bg-slate-700/50 rounded">
-                  <div className="text-slate-400">Frequency</div>
-                  <div className="font-semibold text-blue-300">121.9</div>
+                <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                  <div className="text-muted-foreground font-medium">Frequency</div>
+                  <div className="font-bold text-lg text-primary">121.9</div>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-slate-300">Approved Actions</h4>
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-foreground">Approved Actions</h4>
                 <div className="space-y-2 max-h-32 overflow-y-auto">
                   {approvedSuggestions.length === 0 ? (
-                    <div className="text-xs text-slate-400 text-center py-2">
+                    <div className="text-xs text-muted-foreground text-center py-4 bg-muted/30 rounded-lg">
                       No approved actions yet
                     </div>
                   ) : (
                     approvedSuggestions.map((action) => (
-                      <div key={action.id} className="flex items-center space-x-2 p-2 bg-green-900/30 rounded text-xs border border-green-400/30">
-                        <CheckCircle className="h-3 w-3 text-green-400" />
-                        <span className="text-green-300">{action.action}</span>
+                      <div key={action.id} className="flex items-center space-x-3 p-3 bg-primary/5 rounded-lg text-sm border border-primary/20">
+                        <CheckCircle className="h-4 w-4 text-primary" />
+                        <span className="text-foreground font-medium">{action.action}</span>
                       </div>
                     ))
                   )}
@@ -253,25 +254,25 @@ const Index = () => {
         </div>
 
         {/* Demo Info */}
-        <Card className="mt-8 bg-blue-900/20 border-blue-400/30">
-          <CardContent className="pt-6">
+        <Card className="mt-8 bg-primary/5 border-primary/20 shadow-large">
+          <CardContent className="pt-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-blue-300 mb-2">Live Demo: AI Co-pilot in Action</h2>
-              <p className="text-blue-200 mb-4">
+              <h2 className="text-2xl font-bold text-foreground mb-3">Live Demo: AI Co-pilot in Action</h2>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Watch as our AI system processes real ATC instructions and provides intelligent flight plan suggestions to enhance pilot awareness and reduce miscommunication.
               </p>
-              <div className="flex justify-center space-x-6 text-sm">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                  <span>AI Processing</span>
+              <div className="flex justify-center space-x-8 text-sm">
+                <div className="flex items-center space-x-3">
+                  <div className="w-4 h-4 bg-destructive rounded-full animate-pulse"></div>
+                  <span className="font-medium text-foreground">AI Processing</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  <span>Pilot Approved</span>
+                <div className="flex items-center space-x-3">
+                  <div className="w-4 h-4 bg-primary rounded-full"></div>
+                  <span className="font-medium text-foreground">Pilot Approved</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
-                  <span>Live Audio</span>
+                <div className="flex items-center space-x-3">
+                  <div className="w-4 h-4 bg-destructive rounded-full animate-pulse"></div>
+                  <span className="font-medium text-foreground">Live Audio</span>
                 </div>
               </div>
             </div>
